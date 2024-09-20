@@ -45,7 +45,7 @@ int random_num(int inf, int sup)
 /***************************************************/
 int* generate_perm(int N)
 {
-  /* your code */
+  int perm = (int*)malloc(N*sizeof(int));
 }
 
 /***************************************************/
