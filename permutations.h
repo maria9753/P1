@@ -12,6 +12,8 @@
 #ifndef PERMUTATIONS_H
 #define PERMUTATIONS_H
 
+#include <stdlib.h>
+
 /* constants */
 
 #ifndef ERR
