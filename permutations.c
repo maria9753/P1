@@ -45,7 +45,23 @@ int random_num(int inf, int sup)
 /***************************************************/
 int* generate_perm(int N)
 {
-  int perm = (int*)malloc(N*sizeof(int));
+  int i;
+  int aux = 0;
+  int random = 0;
+  int *perm = (int*)malloc(N*sizeof(int));
+
+  for (i = 0; i < N; i++) {
+    perm[i] = i + 1;
+  }
+
+  for (i = 0; i < N; i++) {
+    random = random_num(i, N);
+    aux = perm[i];
+    perm[i] = perm[random];
+    perm[random] = aux;
+  }
+
+  return perm;
 }
 
 /***************************************************/
