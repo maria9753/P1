@@ -46,21 +46,14 @@ int random_num(int inf, int sup)
 int* generate_perm(int N)
 {
   int i;
-  int aux = 0;
-  int random = 0;
-  int *perm = (int*)malloc(N*sizeof(int));
+  int *perm = (int*) malloc (N * sizeof(int));
 
-  for (i = 0; i < N; i++) {
+  for (i = 0; i < N; i++) 
     perm[i] = i + 1;
-  }
-
-  for (i = 0; i < N; i++) {
-    random = random_num(i, N);
-    aux = perm[i];
-    perm[i] = perm[random];
-    perm[random] = aux;
-  }
-
+  
+  for (i = 0; i < N; i++) 
+    swap(&perm[i], &perm[random_num(i, N - 1)]);
+  
   return perm;
 }
 
@@ -81,16 +74,13 @@ int* generate_perm(int N)
 /***************************************************/
 int** generate_permutations(int n_perms, int N)
 {
-  int i = 0;
+  int i;
 
-  int **permutation = (int**) malloc (n_perms*sizeof(int*));
+  int **perms = (int**) malloc (n_perms * sizeof(int*));
 
-  for (i = 0; i < n_perms; i++) {
-    permutation[i] = generate_perm(N);
-  }
+  for (i = 0; i < n_perms; i++) 
+    perms[i] = generate_perm(N);
   
-  return permutation;
+  return perms;
 }
 
-/* your code */
-}
