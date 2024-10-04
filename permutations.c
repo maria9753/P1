@@ -81,5 +81,16 @@ int* generate_perm(int N)
 /***************************************************/
 int** generate_permutations(int n_perms, int N)
 {
+  int i = 0;
+
+  int **permutation = (int**) malloc (n_perms*sizeof(int*));
+
+  for (i = 0; i < n_perms; i++) {
+    permutation[i] = generate_perm(N);
+  }
+  
+  return permutation;
+}
+
 /* your code */
 }
