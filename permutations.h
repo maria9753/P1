@@ -15,7 +15,6 @@
 #include <stdlib.h>
 
 /* constants */
-
 #ifndef ERR
   #define ERR -1
   #define OK (!(ERR))
@@ -26,7 +25,5 @@ int random_num(int inf, int sup);
 int* generate_perm(int N);
 
 int** generate_permutations(int n_perms, int N);
-
-void swap(int *element1, int *element2);
 
 #endif

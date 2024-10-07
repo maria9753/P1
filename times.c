@@ -17,10 +17,7 @@
 /*                                                 */
 /* Your documentation                              */
 /***************************************************/
-short average_sorting_time(pfunc_sort metodo, 
-                              int n_perms,
-                              int N, 
-                              PTIME_AA ptime)
+short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime)
 {
 /* Your code */
 }
@@ -30,9 +27,7 @@ short average_sorting_time(pfunc_sort metodo,
 /*                                                 */
 /* Your documentation                              */
 /***************************************************/
-short generate_sorting_times(pfunc_sort method, char* file, 
-                                int num_min, int num_max, 
-                                int incr, int n_perms)
+short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms)
 {
   /* Your code */
 }

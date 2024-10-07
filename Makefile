@@ -13,28 +13,35 @@ all : $(EXE)
 clean :
 	rm -f *.o core $(EXE)
 
-$(EXE) : % : %.o sorting.o times.o permutations.o
+$(EXE) : % : %.o sorting.o times.o permutations.o swap.o
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
-	$(CC) $(CFLAGS) -o $@ $@.o sorting.o times.o permutations.o
+	$(CC) $(CFLAGS) -o $@ $@.o sorting.o times.o permutations.o swap.o
 
-permutations.o : permutations.c permutations.h
-	@echo "#---------------------------"
-	@echo "# Generating $@ "
-	@echo "# Depepends on $^"
-	@echo "# Has changed $<"
-	$(CC) $(CFLAGS) -c $<
-
-sorting.o : sorting.c sorting.h
+permutations.o : permutations.c permutations.h swap.h
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
 	$(CC) $(CFLAGS) -c $<
 
- times.o : times.c times.h
+sorting.o : sorting.c sorting.h swap.h
+	@echo "#---------------------------"
+	@echo "# Generating $@ "
+	@echo "# Depepends on $^"
+	@echo "# Has changed $<"
+	$(CC) $(CFLAGS) -c $<
+
+ times.o : times.c times.h swap.h
+	@echo "#---------------------------"
+	@echo "# Generating $@ "
+	@echo "# Depepends on $^"
+	@echo "# Has changed $<"
+	$(CC) $(CFLAGS) -c $<
+
+ swap.o : swap.c swap.h
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
