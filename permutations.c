@@ -13,8 +13,8 @@
 #include "permutations.h"
 
 /***************************************************/
-/* Function: random_num Date:                      */
-/* Authors:                                        */
+/* Function: random_num Date: 27/09/2024           */
+/* Authors: Carmen Gómez, María Poz                */
 /*                                                 */
 /* Rutine that generates a random number           */
 /* between two given numbers                       */
