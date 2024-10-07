@@ -1,6 +1,6 @@
 /***********************************************/
-/* Program: exercise1     Date:                */
-/* Authors:                                    */
+/* Program: exercise1     Date: 27/09/2024     */
+/* Authors: Carmen Gómez, María Pozo           */
 /*                                             */
 /* Program that generates two random nunmbers  */
 /* between two given numbers                   */
@@ -35,8 +35,8 @@ int main(int argc, char** argv)
     exit(-1);
   }
   printf("Practice no 1, Section 1\n");
-  printf("Done by: Your names\n");
-  printf("Grupo: Your group\n");
+  printf("Done by: Carmen Gómez, María Pozo\n");
+  printf("Grupo: 1201\n");
 
   /* check command line */
   for(i = 1; i < argc; i++) {

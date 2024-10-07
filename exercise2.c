@@ -1,6 +1,6 @@
 /********************************************************/
-/* Program: exeercise2      Date:                       */
-/* Authors:                                             */
+/* Program: exeercise2      Date: 04/10/2024            */
+/* Authors: Carmen Gómez, María Pozo                    */
 /*                                                      */
 /* Program that generates random permutations           */
 /*                                                      */
@@ -34,8 +34,8 @@ int main(int argc, char** argv)
   }
 
   printf("Practice number 1, section 2\n");
-  printf("Done by: your names\n");
-  printf("Group: Your group\n");
+  printf("Done by:  Carmen Gómez, María Pozo\n");
+  printf("Group: 1201\n");
 
   /* check command line */
   for(i = 1; i < argc; i++) {

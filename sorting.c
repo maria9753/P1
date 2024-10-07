@@ -3,7 +3,7 @@
  * Descripcion: Implementation of sorting functions
  *
  * Fichero: sorting.c
- * Autor: Carlos Aguirre
+ * Autor: Carlos Aguirre, Carmen Gómez, María Pozo
  * Version: 1.0
  * Fecha: 16-09-2019
  *
@@ -13,7 +13,7 @@
 #include "sorting.h"
 
 /***************************************************/
-/* Function: SelectSort    Date:                   */
+/* Function: SelectSort    Date:04/10/2024         */
 /* Your comment                                    */
 /***************************************************/
 int BubbleSort(int* array, int ip, int iu)

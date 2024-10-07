@@ -3,7 +3,7 @@
  * Descripcion: Header file for sorting functions 
  *
  * Fichero: sorting.h
- * Autor: Carlos Aguirre
+ * Autor: Carlos Aguirre, Carmen Gómez, María Pozo
  * Version: 1.0
  * Fecha: 16-09-2019
  *

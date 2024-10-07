@@ -3,7 +3,7 @@
  * Descripcion: Implementation of function that generate permutations
  *
  * File: permutations.c
- * Autor: Carlos Aguirre
+ * Autor: Carlos Aguirre, Carmen Gómez, María Pozo
  * Version: 1.1
  * Fecha: 21-09-2019
  *
@@ -13,8 +13,26 @@
 #include "permutations.h"
 
 /***************************************************/
+/* Function: swap Date: 27/09/2024                 */
+/* Authors: Carmen Gómez, María Pozo               */
+/*                                                 */
+/* Function that swaps the position two given      */
+/* elements                                        */
+/*                                                 */
+/* Input:                                          */
+/* int element1: element located in the lower      */
+/* position                                        */
+/* int element2: element in the higher position    */
+/***************************************************/
+void swap(int *element1, int *element2) {
+  int aux = *element1;
+  *element1 = *element2;
+  *element2 = aux;
+}
+
+/***************************************************/
 /* Function: random_num Date: 27/09/2024           */
-/* Authors: Carmen Gómez, María Poz                */
+/* Authors: Carmen Gómez, María Pozo               */
 /*                                                 */
 /* Rutine that generates a random number           */
 /* between two given numbers                       */
@@ -31,8 +49,8 @@ int random_num(int inf, int sup)
 }
 
 /***************************************************/
-/* Function: generate_perm Date:                   */
-/* Authors:                                        */
+/* Function: generate_perm Date: 27/09/2024        */
+/* Authors: Carmen Gómez, María Pozo               */
 /*                                                 */
 /* Rutine that generates a random permutation      */
 /*                                                 */
@@ -58,8 +76,8 @@ int* generate_perm(int N)
 }
 
 /***************************************************/
-/* Function: generate_permutations Date:           */
-/* Authors:                                        */
+/* Function: generate_permutations Date:04/10/2024 */
+/* Authors: Carmen Gómez, María Pozo               */
 /*                                                 */
 /* Function that generates n_perms random          */
 /* permutations with N elements                    */

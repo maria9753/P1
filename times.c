@@ -3,7 +3,7 @@
  * Descripcion: Implementation of time measurement functions
  *
  * Fichero: times.c
- * Autor: Carlos Aguirre Maeso
+ * Autor: Carlos Aguirre Maeso, Carmen Gómez, María Pozo
  * Version: 1.0
  * Fecha: 16-09-2019
  *
@@ -13,7 +13,7 @@
 #include "sorting.h"
 
 /***************************************************/
-/* Function: average_sorting_time Date:            */
+/* Function: average_sorting_time Date: 11/10/2024 */
 /*                                                 */
 /* Your documentation                              */
 /***************************************************/
@@ -26,7 +26,7 @@ short average_sorting_time(pfunc_sort metodo,
 }
 
 /***************************************************/
-/* Function: generate_sorting_times Date:          */
+/* Function: generate_sorting_times Date:11/10/2024*/
 /*                                                 */
 /* Your documentation                              */
 /***************************************************/
@@ -38,7 +38,7 @@ short generate_sorting_times(pfunc_sort method, char* file,
 }
 
 /***************************************************/
-/* Function: save_time_table Date:                 */
+/* Function: save_time_table Date: 11/10/2024      */
 /*                                                 */
 /* Your documentation                              */
 /***************************************************/
