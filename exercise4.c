@@ -51,6 +51,8 @@ int main(int argc, char** argv)
 
   ret =BubbleSort(perm, 0, tamano-1);
 
+  printf("%d\n", ret);
+
   if (ret == ERR) {
     printf("Error: Error in BubbleSort\n");
     free(perm);
