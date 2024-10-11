@@ -34,7 +34,7 @@ int BubbleSort(int* array, int ip, int iu)
 
 int BubbleSortFlag(int* array, int ip, int iu)
 {
-  /* your code */
+  return 0;
 }
 
 
