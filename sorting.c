@@ -34,7 +34,23 @@ int BubbleSort(int* array, int ip, int iu)
 
 int BubbleSortFlag(int* array, int ip, int iu)
 {
-  return 0;
+  int i, tae = 0, flag=0;
+
+  for (i = iu; i > ip; i--) {
+    int j;
+    for (j = ip; j < i; j++) {
+      tae++;
+      if (array[j] > array[j + 1]){
+        swap(&array[j], &array[j + 1]);
+        flag=1;
+      }
+    }
+
+    if(flag==0){
+      break;
+    }
+  }
+  return tae;
 }
 
 
