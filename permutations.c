@@ -47,7 +47,7 @@ int random_num(int inf, int sup)
 int* generate_perm(int N)
 {
   int i;
-  int *perm = (int*) malloc (N * sizeof(int));
+  int *perm = (int*) malloc (N * sizeof(perm[0]));
 
   for (i = 0; i < N; i++) 
     perm[i] = i + 1;
@@ -77,7 +77,7 @@ int** generate_permutations(int n_perms, int N)
 {
   int i;
 
-  int **perms = (int**) malloc (n_perms * sizeof(int*));
+  int **perms = (int**) malloc (n_perms * sizeof(perms[0]));
 
   for (i = 0; i < n_perms; i++) 
     perms[i] = generate_perm(N);

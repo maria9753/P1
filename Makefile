@@ -18,7 +18,7 @@ $(EXE) : % : %.o sorting.o times.o permutations.o swap.o
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
-	$(CC) $(CFLAGS) -o $@ $@.o sorting.o times.o permutations.o swap.o
+	$(CC) $(CFLAGS) -o $@ $@.o sorting.o times.o permutations.o swap.o 
 
 permutations.o : permutations.c permutations.h swap.h
 	@echo "#---------------------------"

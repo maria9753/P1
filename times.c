@@ -87,12 +87,15 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
 /* times that the OB has been executed by the      */
 /* selected sorting algoritm                       */
 /*                                                 */
+/* Input:                                          */
 /* pfunc_sort method: the sorting algoritm         */
 /* char* file:the file to store the data           */
 /* int num_min: minimum size of the range          */
 /* int num_max: maximum size of the range          */
 /* int incr: increment for the range               */
-/* int n_perms: number of permutations generated   */
+/* Output:                                         */
+/* short: 0 if the function was succesfull and     */
+/* ERR en case of error                            */
 /***************************************************/
 short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms)
 {
@@ -126,11 +129,15 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
 /* time(time), average Ob, maximum OB and minimum  */
 /* OB                                              */
 /*                                                 */
+/* Input:                                          */
 /* char* file: Name of the file where the data will*/
 /* be saved                                        */
 /* PTIME_AA ptime: structure that holds the data to*/ 
 /* be saved                                        */
 /* int n_times: number of elements stored          */
+/* Output:                                         */
+/* short: 0 if the function was succesfull and     */
+/* ERR en case of error                            */
 /***************************************************/
 short save_time_table(char* file, PTIME_AA ptime, int n_times)
 {
