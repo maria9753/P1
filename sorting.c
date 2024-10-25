@@ -78,4 +78,75 @@ int BubbleSortFlag(int* array, int ip, int iu)
 }
 
 
+int mergesort(int* tabla, int ip, int iu){
+  int imedio;
+
+  if(ip>iu)
+    return ERR;
+
+  else if(ip==iu)
+    return OK;
+
+  else{
+    if((ip+iu)%2==0)
+      imedio= (ip+iu)/2;
+
+    else
+      imedio= (ip+iu-1)/2;
+
+    mergesort(tabla, ip, imedio);
+    mergesort(tabla, imedio+1, iu);
+
+    return merge(tabla, ip, iu, imedio);
+    }
+}
+int merge(int* tabla, int ip, int iu, int imedio){
+
+  int *tabla_aux= (int*)malloc((iu-ip+1)*sizeof(tabla_aux[0]));
+
+  if(tabla_aux==NULL){
+    return ERR;
+  }
+
+  int i=ip, j=imedio+1, k=ip;
+
+  while(i<=imedio && j<=iu){
+    if(tabla[i]<tabla[j])
+      i++;
+    else
+      k++;
+  }  
+
+  if(i>imedio){
+    while(j<=iu){
+      tabla_aux[k]=tabla[j];
+      j++;
+      k++;
+    }
+  }
+
+  else if(j>iu){
+    while(i<=imedio){
+      tabla_aux[k]=tabla[i];
+      i++;
+      k++;
+    }
+  }
+
+  if(copy(tabla_aux, tabla, ip, iu)==ERR){
+    return ERR;
+  }
+
+  free(tabla_aux);
+  return OK;
+}
+
+int copy(int *tabla_aux, int *tabla, int ip, int iu){
+  int i;
+  for(i=0; i<iu; i++){
+    tabla[ip+i]=tabla_aux[i];
+  }
+
+  return OK;
+}
 

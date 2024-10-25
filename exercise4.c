@@ -17,7 +17,7 @@
 
 int main(int argc, char** argv)
 {
-  int tamano, i, j, ret;
+  int tamano=0, i, j, ret=0;
   int* perm = NULL;
 
   srand(time(NULL));
@@ -49,9 +49,7 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  ret =BubbleSort(perm, 0, tamano-1);
-
-  printf("%d\n", ret);
+  ret =mergesort(perm, 0, tamano-1);
 
   if (ret == ERR) {
     printf("Error: Error in BubbleSort\n");
