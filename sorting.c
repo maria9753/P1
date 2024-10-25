@@ -97,7 +97,7 @@ int mergesort(int* tabla, int ip, int iu){
       return ERR;
     }
 
-    if(mergesort(tabla, imedio+1, iu)==ERR){
+    if(mergesort(tabla, imedio + 1, iu)==ERR){
       return ERR;
     }
 
@@ -139,12 +139,10 @@ int merge(int* tabla, int ip, int iu, int imedio){
     }
   }
 
-  if(copy(tabla_aux, tabla, ip, iu)==ERR){
-    return ERR;
-  }
+  int ret= copy(tabla_aux, tabla, ip, iu);
 
   free(tabla_aux);
-  return OK;
+  return ret;
 }
 
 int copy(int *tabla_aux, int *tabla, int ip, int iu){
