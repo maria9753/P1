@@ -81,10 +81,9 @@ int BubbleSortFlag(int* array, int ip, int iu)
 int mergesort(int* tabla, int ip, int iu){
   int imedio;
 
-  if(ip>iu)
+  if(ip > iu)
     return ERR;
-
-  else if(ip==iu)
+  else if(ip == iu)
     return OK;
 
   else{
@@ -94,15 +93,22 @@ int mergesort(int* tabla, int ip, int iu){
     else
       imedio= (ip+iu-1)/2;
 
-    mergesort(tabla, ip, imedio);
-    mergesort(tabla, imedio+1, iu);
+    if(mergesort(tabla, ip, imedio)==ERR){
+      return ERR;
+    }
+
+    if(mergesort(tabla, imedio+1, iu)==ERR){
+      return ERR;
+    }
 
     return merge(tabla, ip, iu, imedio);
     }
 }
+
+
 int merge(int* tabla, int ip, int iu, int imedio){
 
-  int *tabla_aux= (int*)malloc((iu-ip+1)*sizeof(tabla_aux[0]));
+  int *tabla_aux= (int*)malloc((iu - ip + 1)*sizeof(tabla_aux[0]));
 
   if(tabla_aux==NULL){
     return ERR;
@@ -110,7 +116,7 @@ int merge(int* tabla, int ip, int iu, int imedio){
 
   int i=ip, j=imedio+1, k=ip;
 
-  while(i<=imedio && j<=iu){
+  while(i <= imedio && j <= iu){
     if(tabla[i]<tabla[j])
       i++;
     else
@@ -143,8 +149,8 @@ int merge(int* tabla, int ip, int iu, int imedio){
 
 int copy(int *tabla_aux, int *tabla, int ip, int iu){
   int i;
-  for(i=0; i<iu; i++){
-    tabla[ip+i]=tabla_aux[i];
+  for(i=0; i < iu - ip; i++){
+    tabla[ip + i]=tabla_aux[i];
   }
 
   return OK;
