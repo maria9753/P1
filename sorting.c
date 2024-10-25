@@ -153,4 +153,81 @@ int copy(int *tabla_aux, int *tabla, int ip, int iu){
 
   return OK;
 }
+int heapsort(int *tabla, int ip, int iu) {
+  int tae1 = CrearHeap(tabla, iu - ip + 1);
+  int tae2 = OrdenarHeap(tabla, iu - ip + 1);
+  
+  if (tae1 == ERR || tae2 == ERR) {
+    return ERR;
+  }
+  
+  return tae1 + tae2;
+}
+
+int CrearHeap(int* tabla, int n) {
+  int i = 0, tae = 0;
+
+  if (n == 1) {
+    return 0;
+    
+  if (n % 2 == 0) {
+    for (i = n / 2; i > 0; i--) {
+      if (Heapify(tabla, iu - ip + 1, i) == ERR) {
+        return ERR;
+      }
+      tae++;
+    }
+  } else {
+    for (i = (n - 1) / 2; i > 0; i--) {
+      if (Heapify(tabla, iu - ip + 1, i) == ERR) {
+        return ERR;
+      }
+      tae++;
+    }
+  }
+    
+  return tae;
+}
+
+int OrdenarHeap(int* tabla, int n) {
+  int i = 0, tae = 0;
+  
+  for (i = n - 1; i > 1; i--) {
+    swap(tabla[0], tabla[i]);
+    if (Heapify(tabla, i, 0) == ERR) {
+      return ERR;
+    }
+    tae++;
+  }
+
+  return tae;
+}
+
+int Heapify(int *tabla, int n, int i) {
+  int ind = 0, tae = 0;
+  
+  while (2 * i + 2 <= n) {
+    ind = max(tabla, n, i, 2 * i + 1, 2 * i + 2);
+    if (ind != i) {
+      swap(tabla[i], tabla[ind]);
+      i = ind;
+      tae++;
+    } else {
+      return tae;
+    }
+  }
+
+  return tae;
+}
+
+int max (int *tabla, int n, int i1, int i2, int i3) {
+  if (tabla[i1] >= tabla[i2] && tabla[i1] >= tabla[i3]) {
+    return i1;
+  } else if (tabla[i2] >= tabla[i1] && tabla[i1] >= tabla[i3]) {
+    return i2;
+  } else {
+    return i3;
+}
+  
+
 
