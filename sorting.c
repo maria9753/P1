@@ -117,15 +117,22 @@ int merge(int* tabla, int ip, int iu, int imedio){
   int i=ip, j=imedio+1, k=ip;
 
   while(i <= imedio && j <= iu){
-    if(tabla[i]<tabla[j])
+    if(tabla[i]<tabla[j]){
+      tabla_aux[k - ip]=tabla[i];
       i++;
-    else
-      k++;
+    }
+      
+    else{
+      tabla_aux[k - ip]=tabla[j];
+      j++;
+    }
+
+    k++;
   }  
 
   if(i>imedio){
     while(j<=iu){
-      tabla_aux[k]=tabla[j];
+      tabla_aux[k - ip]=tabla[j];
       j++;
       k++;
     }
@@ -133,26 +140,20 @@ int merge(int* tabla, int ip, int iu, int imedio){
 
   else if(j>iu){
     while(i<=imedio){
-      tabla_aux[k]=tabla[i];
+      tabla_aux[k - ip]=tabla[i];
       i++;
       k++;
     }
   }
 
-  int ret= copy(tabla_aux, tabla, ip, iu);
-
-  free(tabla_aux);
-  return ret;
-}
-
-int copy(int *tabla_aux, int *tabla, int ip, int iu){
-  int i;
-  for(i=0; i < iu - ip; i++){
-    tabla[ip + i]=tabla_aux[i];
+  for (k = 0; k <= iu - ip; k++) {
+    tabla[ip + k] = tabla_aux[k];
   }
 
+  free(tabla_aux);
   return OK;
 }
+
 int heapsort(int *tabla, int ip, int iu) {
   int tae1 = CrearHeap(tabla, iu - ip + 1);
   int tae2 = OrdenarHeap(tabla, iu - ip + 1);
@@ -167,7 +168,7 @@ int heapsort(int *tabla, int ip, int iu) {
 int CrearHeap(int* tabla, int n) {
   int i = 0, tae = 0;
 
-  if (n == 1) {
+  if (n == 1)
     return 0;
     
   if (n % 2 == 0) {
@@ -227,6 +228,7 @@ int max (int *tabla, int n, int i1, int i2, int i3) {
     return i2;
   } else {
     return i3;
+  }
 }
   
 
