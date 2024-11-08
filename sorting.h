@@ -32,4 +32,10 @@ int BubbleSortFlag(int* array, int ip, int iu);
 int mergesort(int* tabla, int ip, int iu);
 int merge(int* tabla, int ip, int iu, int imedio);
 
+int heapsort(int *tabla, int ip, int iu);
+int CrearHeap(int* tabla, int n);
+int OrdenarHeap(int* tabla, int n);
+int Heapify(int *tabla, int n, int i);
+int max (int *tabla, int n, int i1, int i2, int i3, int *tae);
+
 #endif

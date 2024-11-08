@@ -109,14 +109,14 @@ int mergesort(int* tabla, int ip, int iu){
 int merge(int* tabla, int ip, int iu, int imedio){
 
   int *tabla_aux= (int*)malloc((iu - ip + 1)*sizeof(tabla_aux[0]));
+  int i=ip, j=imedio+1, k=ip, tae=0;
 
   if(tabla_aux==NULL){
     return ERR;
   }
 
-  int i=ip, j=imedio+1, k=ip;
-
   while(i <= imedio && j <= iu){
+    tae++;
     if(tabla[i]<tabla[j]){
       tabla_aux[k - ip]=tabla[i];
       i++;
@@ -151,7 +151,7 @@ int merge(int* tabla, int ip, int iu, int imedio){
   }
 
   free(tabla_aux);
-  return OK;
+  return tae;
 }
 
 int heapsort(int *tabla, int ip, int iu) {
@@ -166,39 +166,42 @@ int heapsort(int *tabla, int ip, int iu) {
 }
 
 int CrearHeap(int* tabla, int n) {
-  int i = 0, tae = 0;
+  int i = 0, tae = 0, result=0;
 
   if (n == 1)
     return 0;
     
   if (n % 2 == 0) {
-    for (i = n / 2; i > 0; i--) {
-      if (Heapify(tabla, iu - ip + 1, i) == ERR) {
+    for (i = n / 2 -1 ; i >= 0; i--) {
+      result += Heapify(tabla, n, i);
+      if (result == ERR) {
         return ERR;
       }
-      tae++;
+      tae += result;
     }
   } else {
-    for (i = (n - 1) / 2; i > 0; i--) {
-      if (Heapify(tabla, iu - ip + 1, i) == ERR) {
+    for (i = (n - 1) / 2 -1 ; i >= 0; i--) {
+      result += Heapify(tabla, n, i);
+      if (result == ERR) {
         return ERR;
       }
-      tae++;
+      tae += result;
     }
   }
-    
+  
   return tae;
 }
 
 int OrdenarHeap(int* tabla, int n) {
-  int i = 0, tae = 0;
+  int i = 0, tae = 0, result=0;
   
   for (i = n - 1; i > 1; i--) {
-    swap(tabla[0], tabla[i]);
-    if (Heapify(tabla, i, 0) == ERR) {
+    swap(&tabla[0], &tabla[i]);
+    result = Heapify(tabla, i, 0);
+    if (result == ERR) {
       return ERR;
     }
-    tae++;
+    tae += result;
   }
 
   return tae;
@@ -207,12 +210,11 @@ int OrdenarHeap(int* tabla, int n) {
 int Heapify(int *tabla, int n, int i) {
   int ind = 0, tae = 0;
   
-  while (2 * i + 2 <= n) {
-    ind = max(tabla, n, i, 2 * i + 1, 2 * i + 2);
+  while (2 * i + 2 < n) {
+    ind = max(tabla, n, i, 2 * i + 1, 2 * i + 2, &tae);
     if (ind != i) {
-      swap(tabla[i], tabla[ind]);
+      swap(&tabla[i], &tabla[ind]);
       i = ind;
-      tae++;
     } else {
       return tae;
     }
@@ -221,15 +223,22 @@ int Heapify(int *tabla, int n, int i) {
   return tae;
 }
 
-int max (int *tabla, int n, int i1, int i2, int i3) {
+int max (int *tabla, int n, int i1, int i2, int i3, int *tae) {
+  (*tae)++;
   if (tabla[i1] >= tabla[i2] && tabla[i1] >= tabla[i3]) {
     return i1;
-  } else if (tabla[i2] >= tabla[i1] && tabla[i1] >= tabla[i3]) {
+  } 
+
+  (*tae)++;
+  if (i2<n && tabla[i2] >= tabla[i1] && tabla[i2] >= tabla[i3]) {
     return i2;
-  } else {
+  } 
+  
+  (*tae)++;
+  if(i3<n){
     return i3;
   }
+
+    return ERR;
 }
   
-
-
