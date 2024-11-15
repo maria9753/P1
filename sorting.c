@@ -170,32 +170,22 @@ int CrearHeap(int* tabla, int n) {
 
   if (n == 1)
     return 0;
-    
-  if (n % 2 == 0) {
-    for (i = n / 2 -1 ; i >= 0; i--) {
-      result += Heapify(tabla, n, i);
-      if (result == ERR) {
-        return ERR;
-      }
-      tae += result;
+
+  for (i = n / 2 -1 ; i >= 0; i--) {
+    result += Heapify(tabla, n, i);
+    if (result == ERR) {
+      return ERR;
     }
-  } else {
-    for (i = (n - 1) / 2 -1 ; i >= 0; i--) {
-      result += Heapify(tabla, n, i);
-      if (result == ERR) {
-        return ERR;
-      }
-      tae += result;
-    }
+    tae += result;
   }
   
   return tae;
 }
 
 int OrdenarHeap(int* tabla, int n) {
-  int i = 0, tae = 0, result=0;
+  int i = 0, tae = 0, result = 0;
   
-  for (i = n - 1; i > 1; i--) {
+  for (i = n - 1; i > 0; i--) {
     swap(&tabla[0], &tabla[i]);
     result = Heapify(tabla, i, 0);
     if (result == ERR) {
@@ -210,13 +200,13 @@ int OrdenarHeap(int* tabla, int n) {
 int Heapify(int *tabla, int n, int i) {
   int ind = 0, tae = 0;
   
-  while (2 * i + 2 < n) {
+  while (2 * i + 1 < n) {
     ind = max(tabla, n, i, 2 * i + 1, 2 * i + 2, &tae);
     if (ind != i) {
       swap(&tabla[i], &tabla[ind]);
       i = ind;
     } else {
-      return tae;
+      break;
     }
   }
 
@@ -224,21 +214,21 @@ int Heapify(int *tabla, int n, int i) {
 }
 
 int max (int *tabla, int n, int i1, int i2, int i3, int *tae) {
-  (*tae)++;
-  if (tabla[i1] >= tabla[i2] && tabla[i1] >= tabla[i3]) {
-    return i1;
-  } 
-
-  (*tae)++;
-  if (i2<n && tabla[i2] >= tabla[i1] && tabla[i2] >= tabla[i3]) {
-    return i2;
-  } 
   
-  (*tae)++;
-  if(i3<n){
-    return i3;
+  if (i2 < n) {
+    (*tae)++;
+    if (tabla[i2] > tabla[i1]) {
+      i1 = i2;
+    }
   }
 
-    return ERR;
+  if (i3 < n) {
+    (*tae)++;
+    if (tabla[i3] > tabla[i1]) {
+      i1 = i3;
+    }
+  }
+
+  return i1;
 }
   
