@@ -36,7 +36,7 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
 {
   /* generamos las permutaciones, tantas como indique n_perms y N*/
   clock_t start, end;
-  int i, num_ob=0, max_ob=0, min_ob=N*(N-1)/2;
+  int i, num_ob=0, max_ob=0, min_ob = (N / 2) * (N - 1);
   double time_in_seconds, total_ob=0;
   int **perms = generate_permutations(n_perms, N);
   if(perms==NULL){
@@ -49,7 +49,7 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
   /* ordernar cada permutacion con la funcion que se pase por method*/
   for(i=0; i<n_perms; i++){
     num_ob =metodo(perms[i], 0, N-1);
-
+    
     total_ob += num_ob;
 
     if(num_ob<min_ob)
@@ -150,7 +150,7 @@ short save_time_table(char* file, PTIME_AA ptime, int n_times)
   }
 
   for(i=0; i<n_times; i++)
-    fprintf(f, "%d %f %f %d %d\n", ptime[i].N, ptime[i].time, ptime[i].average_ob, ptime[i].max_ob, ptime[i].min_ob);
+    fprintf(f, "%d %f %.4f %d %d\n", ptime[i].N, ptime[i].time, ptime[i].average_ob, ptime[i].max_ob, ptime[i].min_ob);
   
   fclose(f);
   return 0;

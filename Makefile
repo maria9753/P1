@@ -4,7 +4,7 @@
 #-----------------------
 
 CC = gcc -ansi -pedantic
-CFLAGS = -Wall -O3 #Añadido 03 para optimización
+CFLAGS = -Wall -O3 #Añadido 03 para optimización 
 EXE = exercise1 exercise2 exercise3 exercise4 exercise5
 
 all : $(EXE)

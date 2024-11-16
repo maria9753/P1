@@ -9,7 +9,6 @@
  *
  */
 
-
 #include "sorting.h"
 #include "swap.h"
 
@@ -78,8 +77,23 @@ int BubbleSortFlag(int* array, int ip, int iu)
 }
 
 
+/***************************************************/
+/* Function: MergeSort       Date: 16/11/2024      */
+/*                                                 */
+/* This function sorts a table of numbers using    */
+/* the merge technique, which consists on dividing */
+/* the table until they are only numbers, and then */
+/* use merge to join them all ordered              */
+/*                                                 */
+/* Input:                                          */
+/* int *tabla: The permutation that will be sorted */
+/* int ip: the index of the lowest element         */ 
+/* int iu: the index of the highest element        */ 
+/* Output:                                         */
+/* int: the execution time of the algorithm        */
+/***************************************************/
 int mergesort(int* tabla, int ip, int iu){
-  int imedio;
+  int imedio, tae1=0, tae2=0, tae3=0;
 
   if(ip > iu)
     return ERR;
@@ -93,19 +107,33 @@ int mergesort(int* tabla, int ip, int iu){
     else
       imedio= (ip+iu-1)/2;
 
-    if(mergesort(tabla, ip, imedio)==ERR){
+    tae1= mergesort(tabla, ip, imedio);
+    tae2= mergesort(tabla, imedio + 1, iu);
+    tae3= merge(tabla, ip, iu, imedio);
+  
+    if(tae1==ERR || tae2==ERR || tae3==ERR){
       return ERR;
     }
-
-    if(mergesort(tabla, imedio + 1, iu)==ERR){
-      return ERR;
     }
 
-    return merge(tabla, ip, iu, imedio);
-    }
+    return tae1 + tae2 + tae3;
 }
 
-
+/***************************************************/
+/* Function: Merge           Date: 16/11/2024      */
+/*                                                 */
+/* This function joins tables of numbers but       */
+/* sorting them until the last one is the original */
+/* table sorted                                    */
+/*                                                 */
+/* Input:                                          */
+/* int *tabla: The permutation that will be sorted */
+/* int ip: the index of the lowest element         */ 
+/* int iu: the index of the highest element        */ 
+/* int imedio: the index of the medium element     */ 
+/* Output:                                         */
+/* int: the execution time of the algorithm        */
+/***************************************************/
 int merge(int* tabla, int ip, int iu, int imedio){
 
   int *tabla_aux= (int*)malloc((iu - ip + 1)*sizeof(tabla_aux[0]));
@@ -154,6 +182,19 @@ int merge(int* tabla, int ip, int iu, int imedio){
   return tae;
 }
 
+/***************************************************/
+/* Function: HeapSort        Date: 16/11/2024      */
+/*                                                 */
+/* This function sorts a table of numbers using    */
+/* a heap, whcih is created first, and then sorted */
+/*                                                 */
+/* Input:                                          */
+/* int *tabla: The permutation that will be sorted */
+/* int ip: the index of the lowest element         */ 
+/* int iu: the index of the highest element        */ 
+/* Output:                                         */
+/* int: the execution time of the algorithm        */
+/***************************************************/
 int heapsort(int *tabla, int ip, int iu) {
   int tae1 = CrearHeap(tabla, iu - ip + 1);
   int tae2 = OrdenarHeap(tabla, iu - ip + 1);
@@ -165,6 +206,17 @@ int heapsort(int *tabla, int ip, int iu) {
   return tae1 + tae2;
 }
 
+/***************************************************/
+/* Function: CrearHeap        Date: 16/11/2024     */
+/*                                                 */
+/* This function creates the heap                  */
+/*                                                 */
+/* Input:                                          */
+/* int *tabla: The permutation that will be sorted */
+/* int n: the amount of elements of the table      */ 
+/* Output:                                         */
+/* int: the execution time of the algorithm        */
+/***************************************************/
 int CrearHeap(int* tabla, int n) {
   int i = 0, tae = 0, result=0;
 
@@ -172,7 +224,7 @@ int CrearHeap(int* tabla, int n) {
     return 0;
 
   for (i = n / 2 -1 ; i >= 0; i--) {
-    result += Heapify(tabla, n, i);
+    result = Heapify(tabla, n, i);
     if (result == ERR) {
       return ERR;
     }
@@ -182,6 +234,17 @@ int CrearHeap(int* tabla, int n) {
   return tae;
 }
 
+/***************************************************/
+/* Function: OrdenarHeap        Date: 16/11/2024   */
+/*                                                 */
+/* This function sorts the heap                    */
+/*                                                 */
+/* Input:                                          */
+/* int *tabla: The permutation that will be sorted */
+/* int n: the amount of elements of the table      */ 
+/* Output:                                         */
+/* int: the execution time of the algorithm        */
+/***************************************************/
 int OrdenarHeap(int* tabla, int n) {
   int i = 0, tae = 0, result = 0;
   
@@ -197,6 +260,19 @@ int OrdenarHeap(int* tabla, int n) {
   return tae;
 }
 
+/***************************************************/
+/* Function: Heapify          Date: 16/11/2024     */
+/*                                                 */
+/* This function ensures that the table keeps      */
+/* being a max heap in each iteration              */
+/*                                                 */
+/* Input:                                          */
+/* int *tabla: The permutation that will be sorted */
+/* int n: the amount of elements of the table      */ 
+/* int i: the position of the cahged element       */
+/* Output:                                         */
+/* int: the execution time of the algorithm        */
+/***************************************************/
 int Heapify(int *tabla, int n, int i) {
   int ind = 0, tae = 0;
   
@@ -213,22 +289,39 @@ int Heapify(int *tabla, int n, int i) {
   return tae;
 }
 
+/***************************************************/
+/* Function: max              Date: 16/11/2024     */
+/*                                                 */
+/* This function selects which child is not        */
+/* satisfying the max heap condition               */
+/*                                                 */
+/* Input:                                          */
+/* int *tabla: The permutation that will be sorted */
+/* int n: the amount of elements of the table      */ 
+/* int i1: the father node                         */
+/* int i2: the left son of the node                */
+/* int i3: the rigth son of the node               */ 
+/* int tae: the time of execution of the algorithm */
+/* Output:                                         */
+/* int: the index that has to be moved             */
+/***************************************************/
 int max (int *tabla, int n, int i1, int i2, int i3, int *tae) {
+  int ind_max=i1;
   
   if (i2 < n) {
     (*tae)++;
-    if (tabla[i2] > tabla[i1]) {
-      i1 = i2;
+    if (tabla[i2] > tabla[ind_max]) {
+      ind_max = i2;
     }
   }
 
   if (i3 < n) {
     (*tae)++;
-    if (tabla[i3] > tabla[i1]) {
-      i1 = i3;
+    if (tabla[i3] > tabla[ind_max]) {
+      ind_max = i3;
     }
   }
 
-  return i1;
+  return ind_max;
 }
   
