@@ -151,7 +151,7 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
     return ERR;
   }
 
-  return method(pdict->table, 0, pdict->n_data - 1, key, &ppos);
+  return method(pdict->table, 0, pdict->n_data - 1, key, ppos);
 }
 
 
@@ -168,10 +168,10 @@ int bin_search(int *table,int F,int L,int key, int *ppos)
     return tae;
   } else if (table[medio] < key)
   {
-    return tae + 1 + bin_search(table, F, medio - 1, key, &ppos);
+    return tae + 1 + bin_search(table, F, medio - 1, key, ppos);
   } else 
   {
-    return tae + 1 + bin_search(table, medio + 1, L, key, &ppos);
+    return tae + 1 + bin_search(table, medio + 1, L, key, ppos);
   }
 }
 
@@ -179,13 +179,13 @@ int lin_search(int *table,int F,int L,int key, int *ppos)
 {
   int i, tae = 0;
 
-  	for (i = F; i <= L; i++)
-  	{
+  for (i = F; i <= L; i++)
+  {
     tae++;
     if (table[i] == key)
     {
       *ppos = i;
-      return;
+      break;
     }
   }
 
@@ -202,8 +202,8 @@ int lin_auto_search(int *table,int F,int L,int key, int *ppos)
     if (table[i] == key)
     {
       *ppos = i;
-      swap(table[i], table[i-1]);
-      return;
+      swap(&table[i], &table[i-1]);
+      break;
     }
   }
 
