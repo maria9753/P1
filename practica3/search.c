@@ -9,10 +9,9 @@
  *
  */
 
-#include "search.h"
-
 #include <stdlib.h>
 #include <math.h>
+#include "search.h"
 
 /**
  *  Key generation functions
@@ -58,27 +57,96 @@ void potential_key_generator(int *keys, int n_keys, int max)
 
 PDICT init_dictionary (int size, char order)
 {
-	/* your code */
+	PDICT pdict=NULL;
+  int i=0;
+
+  pdict= (PDICT)malloc(sizeof(DICT));
+
+  if(pdict==NULL)
+  {
+    return NULL;
+  }
+
+  pdict->size= size;
+  pdict->n_data= 0;
+  pdict->order= order;
+  pdict->table= (int*)malloc(size*sizeof(pdict->table[0]));
+
+  for(i=0; i<size; i++)
+  {
+    pdict->table[i]=0;
+  }
+
+  if(pdict->table==NULL)
+  {
+    return NULL;
+  }
+
+  return pdict;
 }
 
 void free_dictionary(PDICT pdict)
 {
-	/* your code */
+	free(pdict->table);
+  free(pdict);
+  return;
 }
 
 int insert_dictionary(PDICT pdict, int key)
 {
-	/* your code */
+  int ob=0;
+  int A, j;
+
+	if(pdict==NULL)
+  {
+    return ERR;
+  }
+
+  if(pdict->n_data<pdict->size){
+    pdict->table[pdict->size+1]=key;
+    pdict->n_data++;
+  }
+
+  if(pdict->order==SORTED)
+  {
+    A=pdict->table[pdict->size+1];
+
+    while(j>=0 && pdict->table[j]>A){
+      pdict->table[j+1]=pdict->table[j];
+      j--;
+    }
+
+    pdict->table[j+1]=A;
+  }
+
+  return ob;
 }
 
-int massive_insertion_dictionary (PDICT pdict,int *keys, int n_keys)
+int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
 {
-	/* your code */
+  int ob=0, i;
+
+  if(pdict==NULL || keys==NULL){
+    return ERR;
+  }
+
+  for(i=0; i<n_keys; i++){
+    if(insert_dictionary(pdict, keys[i])==ERR){
+      return ERR;
+    }
+  }
+	
+  return ob;
 }
 
 int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 {
-	/* your code */
+	if(pdict==NULL)
+  {
+    return ERR;
+  }
+
+  return method(pdict->table, 0, pdict->n_data - 1, key, &ppos);
 }
 
 
