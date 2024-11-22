@@ -94,7 +94,7 @@ void free_dictionary(PDICT pdict)
 
 int insert_dictionary(PDICT pdict, int key)
 {
-  int ob=0;
+  int tae=0;
   int A, j;
 
 	if(pdict==NULL)
@@ -119,12 +119,12 @@ int insert_dictionary(PDICT pdict, int key)
     pdict->table[j+1]=A;
   }
 
-  return ob;
+  return tae;
 }
 
 int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
 {
-  int ob=0, i;
+  int tae=0, i;
 
   if(pdict==NULL || keys==NULL){
     return ERR;
@@ -136,7 +136,7 @@ int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
     }
   }
 	
-  return ob;
+  return tae;
 }
 
 int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
@@ -158,7 +158,7 @@ int bin_search(int *table,int F,int L,int key, int *ppos)
 
 int lin_search(int *table,int F,int L,int key, int *ppos)
 {
-	int i, tae = 0;
+  int i, tae = 0;
 
   	for (i = F; i <= L; i++)
   	{
@@ -175,7 +175,20 @@ int lin_search(int *table,int F,int L,int key, int *ppos)
 
 int lin_auto_search(int *table,int F,int L,int key, int *ppos)
 {
-	/* your code */
+	int i, tae = 0;
+
+  for (i = F; i <= L; i++)
+  {
+    tae++;
+    if (table[i] == key)
+    {
+      *ppos = i;
+      swap(table[i], table[i-1]);
+      return;
+    }
+  }
+
+  return tae;
 }
 
 
