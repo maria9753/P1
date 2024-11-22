@@ -153,7 +153,21 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 /* Search functions of the Dictionary ADT */
 int bin_search(int *table,int F,int L,int key, int *ppos)
 {
-	/* your code */
+	int medio = (L - F + 1) / 2;
+  int tae = 0;
+
+  tae++;
+  if (table[medio] == key) 
+  {
+    *ppos = medio;
+    return tae;
+  } else if (table[medio] < key)
+  {
+    return tae + 1 + bin_search(table, F, medio - 1, key, &ppos);
+  } else 
+  {
+    return tae + 1 + bin_search(table, medio + 1, L, key, &ppos);
+  }
 }
 
 int lin_search(int *table,int F,int L,int key, int *ppos)
