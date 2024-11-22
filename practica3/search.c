@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "search.h"
+#include "swap.h"
 
 /**
  *  Key generation functions
@@ -113,6 +114,7 @@ int insert_dictionary(PDICT pdict, int key)
 
     while(j>=0 && pdict->table[j]>A){
       pdict->table[j+1]=pdict->table[j];
+      tae++;
       j--;
     }
 
@@ -124,16 +126,19 @@ int insert_dictionary(PDICT pdict, int key)
 
 int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
 {
-  int tae=0, i;
+  int tae=0, i, result=0;
 
   if(pdict==NULL || keys==NULL){
     return ERR;
   }
 
   for(i=0; i<n_keys; i++){
-    if(insert_dictionary(pdict, keys[i])==ERR){
+    tae=insert_dictionary(pdict, keys[i]);
+    if(tae==ERR){
       return ERR;
     }
+
+    result +=tae;
   }
 	
   return tae;

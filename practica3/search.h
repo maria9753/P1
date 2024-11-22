@@ -12,6 +12,8 @@
 #ifndef SEARCH_H_
 #define SEARCH_H_
 
+#include "swap.h"
+
 /* constantes */
 
 #ifndef ERR

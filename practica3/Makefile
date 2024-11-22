@@ -13,12 +13,12 @@ all : $(EXE)
 clean :
 	rm -f *.o core $(EXE)
 
-$(EXE) : % : %.o sorting.o search.o times.o permutations.o
+$(EXE) : % : %.o sorting.o search.o times.o permutations.o swap.o
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
-	$(CC) $(CFLAGS) -o $@ $@.o sorting.o search.o times.o permutations.o
+	$(CC) $(CFLAGS) -o $@ $@.o sorting.o search.o times.o permutations.o swap.o
 
 permutations.o : permutations.c permutations.h
 	@echo "#---------------------------"
@@ -42,6 +42,13 @@ search.o : search.c search.h
 	$(CC) $(CFLAGS) -c $<
 
 times.o : times.c times.h
+	@echo "#---------------------------"
+	@echo "# Generating $@ "
+	@echo "# Depepends on $^"
+	@echo "# Has changed $<"
+	$(CC) $(CFLAGS) -c $<
+
+ swap.o : swap.c swap.h
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
