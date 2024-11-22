@@ -158,7 +158,19 @@ int bin_search(int *table,int F,int L,int key, int *ppos)
 
 int lin_search(int *table,int F,int L,int key, int *ppos)
 {
-	/* your code */
+	int i, tae = 0;
+
+  	for (i = F; i <= L; i++)
+  	{
+    tae++;
+    if (table[i] == key)
+    {
+      *ppos = i;
+      return;
+    }
+  }
+
+  return tae;
 }
 
 int lin_auto_search(int *table,int F,int L,int key, int *ppos)
