@@ -63,24 +63,25 @@ PDICT init_dictionary (int size, char order)
 
   pdict= (PDICT)malloc(sizeof(DICT));
 
-  if(pdict==NULL)
+  if( pdict==NULL )
   {
+    return NULL;
+  }
+
+  pdict->table= (int*)malloc(size*sizeof(pdict->table[0]));
+
+  if(pdict->table==NULL)
+  {
+    free(pdict);
     return NULL;
   }
 
   pdict->size= size;
   pdict->n_data= 0;
   pdict->order= order;
-  pdict->table= (int*)malloc(size*sizeof(pdict->table[0]));
-
   for(i=0; i<size; i++)
   {
     pdict->table[i]=0;
-  }
-
-  if(pdict->table==NULL)
-  {
-    return NULL;
   }
 
   return pdict;
@@ -96,21 +97,23 @@ void free_dictionary(PDICT pdict)
 int insert_dictionary(PDICT pdict, int key)
 {
   int tae=0;
-  int A, j;
+  int A, j= pdict->n_data - 1;              
+;
 
 	if(pdict==NULL)
   {
     return ERR;
   }
 
-  if(pdict->n_data<pdict->size){
-    pdict->table[pdict->size+1]=key;
+  if (pdict->n_data < pdict->size) 
+  {
+    pdict->table[pdict->n_data]=key;
     pdict->n_data++;
   }
 
   if(pdict->order==SORTED)
   {
-    A=pdict->table[pdict->size+1];
+    A= pdict->table[pdict->n_data - 1];
 
     while(j>=0 && pdict->table[j]>A){
       pdict->table[j+1]=pdict->table[j];
@@ -137,7 +140,6 @@ int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
     if(tae==ERR){
       return ERR;
     }
-
     result +=tae;
   }
 	
@@ -158,20 +160,29 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 /* Search functions of the Dictionary ADT */
 int bin_search(int *table,int F,int L,int key, int *ppos)
 {
-	int medio = (L - F + 1) / 2;
+	int medio = F + (L - F) / 2;
   int tae = 0;
 
+  if (F > L) {
+    *ppos = -1;
+    return tae;
+  }
+
   tae++;
-  if (table[medio] == key) 
+  if(table[medio] == key) 
   {
     *ppos = medio;
     return tae;
-  } else if (table[medio] < key)
+  } 
+  
+  else if (table[medio] > key)
   {
     return tae + 1 + bin_search(table, F, medio - 1, key, ppos);
-  } else 
+  } 
+  
+  else 
   {
-    return tae + 1 + bin_search(table, medio + 1, L, key, ppos);
+    return tae + 1+  bin_search(table, medio + 1, L, key, ppos);
   }
 }
 
@@ -202,11 +213,14 @@ int lin_auto_search(int *table,int F,int L,int key, int *ppos)
     if (table[i] == key)
     {
       *ppos = i;
-      swap(&table[i], &table[i-1]);
-      break;
+      if (i > 0) 
+      {
+        swap(&table[i], &table[i - 1]);
+      }
+      return tae;
     }
   }
-
+  *ppos = -1;
   return tae;
 }
 
