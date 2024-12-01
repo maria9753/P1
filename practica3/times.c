@@ -118,7 +118,7 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
 
   free(ptimes);
 
-  return 0;
+  return OK;
 }
 
 /***************************************************/
@@ -156,19 +156,94 @@ short save_time_table(char* file, PTIME_AA ptime, int n_times)
   return 0;
 }
 
-short generate_search_times(pfunc_search method, pfunc_key_generator generator, 
-                                int order, char* file, 
-                                int num_min, int num_max, 
-                                int incr, int n_times)
+short generate_search_times(pfunc_search method, pfunc_key_generator generator, int order, char* file, int num_min, int num_max, int incr, int n_times)
 {
-return ERR;
+  int tamano, i;
+
+  PTIME_AA ptimes= (PTIME_AA)malloc(n_times*sizeof(ptimes[0]));
+
+  for(tamano=num_min, i=0; tamano<=num_max ;tamano+=incr, i++){
+    if(average_search_time(method, generator, order, tamano, n_times, &ptimes[i])==ERR){
+      free(ptimes);
+      return ERR;
+    }
+  }
+  
+  if(save_time_table(file, ptimes, n_times)==ERR){
+    free(ptimes);
+    return ERR;
+  }
+
+  free(ptimes);
+
+  return OK;
 }
 
-short average_search_time(pfunc_search metodo, pfunc_key_generator generator,
-                              int order,
-                              int N, 
-                              int n_times,
-                              PTIME_AA ptime)
+short average_search_time(pfunc_search metodo, pfunc_key_generator generator, int order, int N, int n_times, PTIME_AA ptime)
 { 
-  return ERR;                      
+  PDICT pdict=NULL;
+  int *perm=NULL, *keys_table=NULL;
+  int tae=0, start=0, end=0, time_in_seconds=0, i=0, result=0, min_ob=N, max_ob=0, ppos=0;
+
+  /*Create a dicctionary of size N*/
+  pdict= init_dictionary(N, order);
+  if(pdict==NULL){
+    return ERR;
+  }
+ 
+  /*Create a permutation of size N*/
+  perm= generate_perm(N);
+  if(perm==NULL){
+    free_dictionary(pdict);
+    return ERR;
+  }
+
+  /*Insert the elements of the permutation into the dicctionary*/
+  tae= massive_insertion_dictionary(pdict, perm, N);
+  if(tae==ERR){
+    free_dictionary(pdict);
+    free(perm);
+    return ERR;
+  }
+
+  /*Create the table of the keys that are going to be searched*/
+  keys_table= (int*)malloc(N*sizeof(int));
+  if(keys_table==NULL){
+    free_dictionary(pdict);
+    free(perm);
+    return ERR;
+  }
+  
+  generator(keys_table,N, n_times);
+
+  /*Start the clock*/
+  start= clock();
+
+  for(i=0; i<n_times; i++){
+    tae = metodo(pdict->table, 0, pdict->n_data - 1, keys_table[i], &ppos);
+    result +=tae;
+
+    if(tae<min_ob)
+      min_ob= tae;
+
+    if(tae>max_ob)
+      max_ob=tae;
+  }
+
+  /*End the clock*/
+  end= clock();
+  time_in_seconds = (double)((end - start)/CLOCKS_PER_SEC)/n_times;
+
+  /*estructura de AA_TIME*/
+  ptime->average_ob= result/n_times;
+  ptime->max_ob= max_ob;
+  ptime->min_ob= min_ob;
+  ptime->N= N;
+  ptime->n_elems= n_times;
+  ptime->time= time_in_seconds;
+
+  free_dictionary(pdict);
+  free(keys_table);
+  free(perm);
+  return OK;                      
 }
