@@ -153,14 +153,19 @@ short save_time_table(char* file, PTIME_AA ptime, int n_times)
     fprintf(f, "%d %f %.4f %d %d\n", ptime[i].N, ptime[i].time, ptime[i].average_ob, ptime[i].max_ob, ptime[i].min_ob);
   
   fclose(f);
-  return 0;
+  return OK;
 }
 
 short generate_search_times(pfunc_search method, pfunc_key_generator generator, int order, char* file, int num_min, int num_max, int incr, int n_times)
 {
   int tamano, i;
+  int n_size= (num_max - num_min)/incr +1;
 
-  PTIME_AA ptimes= (PTIME_AA)malloc(n_times*sizeof(ptimes[0]));
+  PTIME_AA ptimes= (PTIME_AA)malloc(n_size*sizeof(ptimes[0]));
+
+  if(ptimes==NULL){
+    return ERR;
+  }
 
   for(tamano=num_min, i=0; tamano<=num_max ;tamano+=incr, i++){
     if(average_search_time(method, generator, order, tamano, n_times, &ptimes[i])==ERR){
@@ -169,7 +174,7 @@ short generate_search_times(pfunc_search method, pfunc_key_generator generator, 
     }
   }
   
-  if(save_time_table(file, ptimes, n_times)==ERR){
+  if(save_time_table(file, ptimes, n_size)==ERR){
     free(ptimes);
     return ERR;
   }
@@ -207,39 +212,40 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
   }
 
   /*Create the table of the keys that are going to be searched*/
-  keys_table= (int*)malloc(N*sizeof(int));
+  keys_table= (int*)malloc(N*n_times*sizeof(int));
   if(keys_table==NULL){
     free_dictionary(pdict);
     free(perm);
     return ERR;
   }
   
-  generator(keys_table,N, n_times);
+  generator(keys_table, N*n_times, N);
 
   /*Start the clock*/
   start= clock();
 
-  for(i=0; i<n_times; i++){
+  for(i=0; i<n_times*N; i++){
     tae = metodo(pdict->table, 0, pdict->n_data - 1, keys_table[i], &ppos);
-    result +=tae;
 
-    if(tae<min_ob)
+    if(tae<min_ob){
       min_ob= tae;
-
-    if(tae>max_ob)
+    }
+    if(tae>max_ob){
       max_ob=tae;
+    } 
+    result +=tae;
   }
 
   /*End the clock*/
   end= clock();
-  time_in_seconds = (double)((end - start)/CLOCKS_PER_SEC)/n_times;
+  time_in_seconds = (double)((end - start)/CLOCKS_PER_SEC);
 
   /*estructura de AA_TIME*/
-  ptime->average_ob= result/n_times;
+  ptime->average_ob= result/N*n_times;
   ptime->max_ob= max_ob;
   ptime->min_ob= min_ob;
   ptime->N= N;
-  ptime->n_elems= n_times;
+  ptime->n_elems= n_times*N;
   ptime->time= time_in_seconds;
 
   free_dictionary(pdict);
