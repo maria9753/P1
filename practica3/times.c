@@ -212,7 +212,7 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
   }
 
   /*Create the table of the keys that are going to be searched*/
-  keys_table= (int*)malloc(N*n_times*sizeof(int));
+  keys_table= (int*)malloc(N*n_times*sizeof(keys_table[0]));
   if(keys_table==NULL){
     free_dictionary(pdict);
     free(perm);
@@ -224,7 +224,7 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
   /*Start the clock*/
   start= clock();
 
-  for(i=0; i<n_times*N; i++){
+  for(i = 0; i < n_times*N ; i++){
     tae = metodo(pdict->table, 0, pdict->n_data - 1, keys_table[i], &ppos);
 
     if(tae<min_ob){
@@ -241,7 +241,7 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
   time_in_seconds = (double)((end - start)/CLOCKS_PER_SEC);
 
   /*estructura de AA_TIME*/
-  ptime->average_ob= result/N*n_times;
+  ptime->average_ob= result/(N*n_times);
   ptime->max_ob= max_ob;
   ptime->min_ob= min_ob;
   ptime->N= N;
