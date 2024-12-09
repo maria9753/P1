@@ -98,7 +98,6 @@ int insert_dictionary(PDICT pdict, int key)
 {
   int tae=0;
   int A, j= pdict->n_data - 1;              
-;
 
 	if(pdict==NULL)
   {
@@ -109,6 +108,7 @@ int insert_dictionary(PDICT pdict, int key)
   {
     pdict->table[pdict->n_data]=key;
     pdict->n_data++;
+    tae++;
   }
 
   if(pdict->order==SORTED)
@@ -143,7 +143,7 @@ int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
     result +=tae;
   }
 	
-  return tae;
+  return result;
 }
 
 int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
@@ -161,28 +161,36 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 int bin_search(int *table,int F,int L,int key, int *ppos)
 {
 	int medio = F + (L - F) / 2;
-  int tae = 0;
+  int tae1 = 0, tae2=0;
 
   if (F > L) {
     *ppos = -1;
-    return tae;
+    return NOT_FOUND;
   }
 
-  tae++;
+  tae1++;
   if(table[medio] == key) 
   {
     *ppos = medio;
-    return tae;
+    return tae1;
   } 
   
   else if (table[medio] > key)
   {
-    return tae + 1 + bin_search(table, F, medio - 1, key, ppos);
+    tae2=bin_search(table, F, medio - 1, key, ppos);
+    if(tae2==NOT_FOUND){
+      return NOT_FOUND;
+    }
+    return tae1 + tae2;
   } 
   
   else 
   {
-    return tae + 1+  bin_search(table, medio + 1, L, key, ppos);
+    tae2=bin_search(table, medio + 1, L, key, ppos);
+    if(tae2==NOT_FOUND){
+      return NOT_FOUND;
+    }
+    return tae1 + tae2;
   }
 }
 
@@ -196,11 +204,11 @@ int lin_search(int *table,int F,int L,int key, int *ppos)
     if (table[i] == key)
     {
       *ppos = i;
-      break;
+      return tae;
     }
   }
 
-  return tae;
+  return NOT_FOUND;
 }
 
 int lin_auto_search(int *table,int F,int L,int key, int *ppos)
@@ -221,7 +229,7 @@ int lin_auto_search(int *table,int F,int L,int key, int *ppos)
     }
   }
   *ppos = -1;
-  return tae;
+  return NOT_FOUND;
 }
 
 
