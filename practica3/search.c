@@ -3,7 +3,7 @@
  * Description: Implementation of functions for search
  *
  * File: search.c
- * Author: Carlos Aguirre and Javier Sanz-Cruzado
+ * Author: Carlos Aguirre, Javier Sanz-Cruzado, Carmen Gómez, María Pozo
  * Version: 1.0
  * Date: 14-11-2016
  *
@@ -56,6 +56,10 @@ void potential_key_generator(int *keys, int n_keys, int max)
   return;
 }
 
+/**
+ *  Function: init_dictionary
+ *               This function creates a dictionary
+ */
 PDICT init_dictionary (int size, char order)
 {
 	PDICT pdict=NULL;
@@ -87,6 +91,10 @@ PDICT init_dictionary (int size, char order)
   return pdict;
 }
 
+/**
+ *  Function: free_dictionary
+ *               This function frees a dictionary
+ */
 void free_dictionary(PDICT pdict)
 {
 	free(pdict->table);
@@ -94,6 +102,10 @@ void free_dictionary(PDICT pdict)
   return;
 }
 
+/**
+ *  Function: insert_dictionary
+ *               This function inserts a key into the dictionary
+ */
 int insert_dictionary(PDICT pdict, int key)
 {
   int tae=0;
@@ -127,6 +139,10 @@ int insert_dictionary(PDICT pdict, int key)
   return tae;
 }
 
+/**
+ *  Function: massive_insertion_dictionary
+ *               This function inserts a table of keys into the dictionary
+ */
 int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
 {
   int tae=0, i, result=0;
@@ -146,6 +162,10 @@ int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
   return result;
 }
 
+/**
+ *  Function: search_dictionary
+ *               This function searchs for a key in a dictionary
+ */
 int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 {
 	if(pdict==NULL)
@@ -158,6 +178,10 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 
 
 /* Search functions of the Dictionary ADT */
+/**
+ *  Function: bin_search
+ *               This function implementates the binary search algoritm
+ */
 int bin_search(int *table,int F,int L,int key, int *ppos)
 {
 	int medio = F + (L - F) / 2;
@@ -194,6 +218,10 @@ int bin_search(int *table,int F,int L,int key, int *ppos)
   }
 }
 
+/**
+ *  Function: lin_search
+ *               This function implementates the lineal search algoritm
+ */
 int lin_search(int *table,int F,int L,int key, int *ppos)
 {
   int i, tae = 0;
@@ -211,6 +239,10 @@ int lin_search(int *table,int F,int L,int key, int *ppos)
   return NOT_FOUND;
 }
 
+/**
+ *  Function: lin_auto_search
+ *               This function implementates the lineal auto-organized search algoritm
+ */
 int lin_auto_search(int *table,int F,int L,int key, int *ppos)
 {
 	int i, tae = 0;

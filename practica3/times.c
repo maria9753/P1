@@ -28,9 +28,8 @@
 /* PTIME_AA ptime: Structure where th information  */
 /* is going to be stored                           */
 /* Output:                                         */
-/* short: Average time that took the algorithm to  */
-/* sort each permutation                           */
-/* -1 en case of error                             */
+/* short: OK if the function was succesfull and    */
+/* ERR en case of error                            */
 /***************************************************/
 short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime)
 {
@@ -94,7 +93,7 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
 /* int num_max: maximum size of the range          */
 /* int incr: increment for the range               */
 /* Output:                                         */
-/* short: 0 if the function was succesfull and     */
+/* short:OK if the function was succesfull and     */
 /* ERR en case of error                            */
 /***************************************************/
 short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms)
@@ -136,7 +135,7 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
 /* be saved                                        */
 /* int n_times: number of elements stored          */
 /* Output:                                         */
-/* short: 0 if the function was succesfull and     */
+/* short:OK if the function was succesfull and     */
 /* ERR en case of error                            */
 /***************************************************/
 short save_time_table(char* file, PTIME_AA ptime, int n_times)
@@ -156,6 +155,29 @@ short save_time_table(char* file, PTIME_AA ptime, int n_times)
   return OK;
 }
 
+/***************************************************/
+/* Function:generate_search_times Date: 09/12/2024 */
+/*  Authors: Carmen Gómez, María Pozo              */
+/*                                                 */
+/* This function saves to a file the average times,*/
+/* the average, minimum and maximum number of      */
+/* times that the OB has been executed by the      */
+/* selected searching algoritm                     */
+/*                                                 */
+/* Input:                                          */
+/* pfunc_sort method: the sorting algoritm         */
+/* pfunc_key_generator generator: the generator    */
+/* algoritm                                        */
+/* order: whether the table is ordred or not       */
+/* char* file:the file to store the data           */
+/* int num_min: minimum size of the range          */
+/* int num_max: maximum size of the range          */
+/* int incr: increment for the range               */
+/* int n_times: times each key is searched         */
+/* Output:                                         */
+/* short: OK if the function was succesfull and    */
+/* ERR en case of error                            */
+/***************************************************/
 short generate_search_times(pfunc_search method, pfunc_key_generator generator, int order, char* file, int num_min, int num_max, int incr, int n_times)
 {
   int tamano, i;
@@ -184,6 +206,26 @@ short generate_search_times(pfunc_search method, pfunc_key_generator generator, 
   return OK;
 }
 
+/***************************************************/
+/* Function: average_search_time  Date: 09/12/2024 */
+/*  Authors: Carmen Gómez, María Pozo              */
+/*                                                 */
+/* Function that generates the average sorting     */
+/* time of the algorithm introduced                */
+/*                                                 */
+/* Input:                                          */
+/* pfunc_sort metodo: Which sorting algorithm      */
+/* pfunc_key_generator generator: the generator    */
+/* algoritm                                        */
+/* int n_perms: Number of permutations generated   */
+/* int N: Number of elements in each permutation   */
+/* int n_times: times each key is searched         */
+/* PTIME_AA ptime: Structure where th information  */
+/* is going to be stored                           */
+/* Output:                                         */
+/* short: OK if the function was succesfull and    */
+/* ERR en case of error                            */
+/***************************************************/
 short average_search_time(pfunc_search metodo, pfunc_key_generator generator, int order, int N, int n_times, PTIME_AA ptime)
 { 
   PDICT pdict=NULL;

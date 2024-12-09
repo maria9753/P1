@@ -82,10 +82,6 @@ int main(int argc, char** argv)
 
   nob = search_dictionary(pdict,key,&pos,bin_search);
 
-  for(j=0; j<size; j++){
-    printf("%d ", pdict->table[j]);
-  }
-
   if(nob >= 0) {
     printf("Key %d found in position %d in %d basic op.\n",key,pos,nob);
   } else if (nob==NOT_FOUND) {

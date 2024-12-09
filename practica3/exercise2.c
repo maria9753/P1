@@ -1,5 +1,5 @@
 /***********************************************************/
-/* Program: exercise2 Date:                             */
+/* Program: exercise2 Date:                                */
 /* Authors:                                                */
 /*                                                         */
 /* Program that writes in a file the average times         */
