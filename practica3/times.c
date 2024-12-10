@@ -230,7 +230,8 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
 { 
   PDICT pdict=NULL;
   int *perm=NULL, *keys_table=NULL;
-  int tae=0, start=0, end=0, time_in_seconds=0, i=0, result=0, min_ob=N, max_ob=0, ppos=0;
+  int tae=0, start=0, end=0, time_in_seconds=0, i=0, min_ob=N, max_ob=0, ppos=0;
+  double result=0;
 
   /*Create a dicctionary of size N*/
   pdict= init_dictionary(N, order);
@@ -265,9 +266,17 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
 
   /*Start the clock*/
   start= clock();
+  min_ob= pdict->n_data;
 
   for(i = 0; i < n_times*N ; i++){
     tae = metodo(pdict->table, 0, pdict->n_data - 1, keys_table[i], &ppos);
+
+    if(tae==ERR){
+      return ERR;
+    }
+    else if(tae==NOT_FOUND){
+      tae= pdict->n_data + 1;
+    }
 
     if(tae<min_ob){
       min_ob= tae;
@@ -275,15 +284,16 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
     if(tae>max_ob){
       max_ob=tae;
     } 
-    result +=tae;
+    result +=(double)tae;
   }
+  printf("ob total: %f\n", result);
 
   /*End the clock*/
   end= clock();
   time_in_seconds = (double)((end - start)/CLOCKS_PER_SEC);
 
   /*estructura de AA_TIME*/
-  ptime->average_ob= result/(N*n_times);
+  ptime->average_ob= (int)result/(N*n_times);
   ptime->max_ob= max_ob;
   ptime->min_ob= min_ob;
   ptime->N= N;
