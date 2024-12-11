@@ -275,7 +275,7 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
       return ERR;
     }
     else if(tae==NOT_FOUND){
-      tae= pdict->n_data + 1;
+      tae= max_ob + 1;
     }
 
     if(tae<min_ob){
@@ -286,14 +286,13 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, in
     } 
     result +=(double)tae;
   }
-  printf("ob total: %f\n", result);
 
   /*End the clock*/
   end= clock();
   time_in_seconds = (double)((end - start)/CLOCKS_PER_SEC);
 
   /*estructura de AA_TIME*/
-  ptime->average_ob= (int)result/(N*n_times);
+  ptime->average_ob= result/(N*n_times);
   ptime->max_ob= max_ob;
   ptime->min_ob= min_ob;
   ptime->N= N;
